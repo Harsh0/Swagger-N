@@ -5,15 +5,13 @@
     "version" : "1.0.0",
     "title" : "Simple Inventory",
     "contact" : {
-      "email" : "you@nylnda.com"
+      "email" : "you@company.com"
     },
     "license" : {
       "name" : "Apache 2.0",
       "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host" : "virtserver.swaggerhub.com",
-  "basePath" : "/Nylnda/Nylnda-Serverless/1.0.0",
   "tags" : [ {
     "name" : "admins",
     "description" : "Secured Admin-only calls"
@@ -21,38 +19,35 @@
     "name" : "developers",
     "description" : "Operations available to regular developers"
   } ],
-  "schemes" : [ "https" ],
   "paths" : {
     "/inventory" : {
       "get" : {
         "tags" : [ "developers" ],
         "summary" : "searches inventory",
-        "description" : "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
         "operationId" : "searchInventory",
+        "description" : "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
         "produces" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "searchString",
           "in" : "query",
+          "name" : "searchString",
           "description" : "pass an optional search string for looking up inventory",
           "required" : false,
           "type" : "string"
         }, {
+          "in" : "query",
           "name" : "skip",
-          "in" : "query",
           "description" : "number of records to skip for pagination",
-          "required" : false,
           "type" : "integer",
-          "minimum" : 0,
-          "format" : "int32"
+          "format" : "int32",
+          "minimum" : 0
         }, {
-          "name" : "limit",
           "in" : "query",
+          "name" : "limit",
           "description" : "maximum number of records to return",
-          "required" : false,
           "type" : "integer",
-          "maximum" : 50.0,
+          "format" : "int32",
           "minimum" : 0,
-          "format" : "int32"
+          "maximum" : 50
         } ],
         "responses" : {
           "200" : {
@@ -72,15 +67,14 @@
       "post" : {
         "tags" : [ "admins" ],
         "summary" : "adds an inventory item",
-        "description" : "Adds an item to the system",
         "operationId" : "addInventory",
+        "description" : "Adds an item to the system",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "inventoryItem",
           "description" : "Inventory item to add",
-          "required" : false,
           "schema" : {
             "$ref" : "#/definitions/InventoryItem"
           }
@@ -102,7 +96,7 @@
   "definitions" : {
     "InventoryItem" : {
       "type" : "object",
-      "required" : [ "id", "manufacturer", "name", "releaseDate" ],
+      "required" : [ "id", "name", "manufacturer", "releaseDate" ],
       "properties" : {
         "id" : {
           "type" : "string",
@@ -120,16 +114,6 @@
         },
         "manufacturer" : {
           "$ref" : "#/definitions/Manufacturer"
-        }
-      },
-      "example" : {
-        "releaseDate" : "2016-08-29T09:12:33.001Z",
-        "name" : "Widget Adapter",
-        "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "manufacturer" : {
-          "phone" : "408-867-5309",
-          "name" : "ACME Corporation",
-          "homePage" : "https://www.acme-corp.com"
         }
       }
     },
@@ -149,12 +133,10 @@
           "type" : "string",
           "example" : "408-867-5309"
         }
-      },
-      "example" : {
-        "phone" : "408-867-5309",
-        "name" : "ACME Corporation",
-        "homePage" : "https://www.acme-corp.com"
       }
     }
-  }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/Nylnda/Nylnda-Serverless/1.0.0",
+  "schemes" : [ "https" ]
 }
